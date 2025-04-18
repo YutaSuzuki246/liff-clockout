@@ -7,9 +7,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
 import { MainLayout } from "@/components/ui/common/MainLayout";
 import { Heading1 } from "@/components/ui/typography";
-import { DescriptionHeadingText } from "@/components/modules/home/DescriptionHeadingText";
-import { FeatureItems } from "@/components/modules/home/FeatureItems";
-import { HeroBannerImage } from "@/components/modules/home/HeroBannerImage";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -29,7 +26,6 @@ export default async function Home() {
               <Heading1 className="font-heading bg-gradient-to-r from-gray-900 to-gray-500 bg-clip-text text-3xl font-bold leading-[1.1] tracking-tighter text-transparent dark:from-white dark:to-gray-500 sm:!text-5xl md:!text-7xl">
                 {siteConfig.name}
               </Heading1>
-              <DescriptionHeadingText />
               <div className="flex items-center space-x-4">
                 <Link
                   href="https://www.youtube.com/watch?v=GWalKzuC0Rg"
@@ -49,10 +45,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        <div className="px-4">
-          <HeroBannerImage />
-          <FeatureItems />
-        </div>
       </div>
     </MainLayout>
   );
