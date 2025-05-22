@@ -40,8 +40,8 @@ export const NavigationBar = async () => {
         </div>
         <div>
           <div className="flex items-center">
-            <div className="hidden lg:block">
-              <ThemeToggle />
+            <div className="hidden lg:flex">
+              <ThemeToggle className="mr-2 h-10 w-10 rounded-md bg-background hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800" />
             </div>
             <div>
               <AccountDropdownMenu userEmail={user?.email} />

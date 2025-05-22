@@ -2,52 +2,66 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import { useTheme } from "next-themes";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  const [theme, setTheme] = useState<"light-mode" | "dark-mode">("light-mode");
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // テーマの値を業務管理システム用に変換
+  const businessTheme = mounted && theme === "dark" ? "dark-mode" : "light-mode";
 
+  // マウント後にのみレンダリングを行い、ハイドレーションエラーを防止
   useEffect(() => {
-    // 保存されたテーマを適用または初期テーマを設定
-    const savedTheme = localStorage.getItem("theme") as "light-mode" | "dark-mode" || "light-mode";
-    setTheme(savedTheme);
+    setMounted(true);
   }, []);
 
   // テーマ切り替え処理
   const toggleTheme = () => {
-    const newTheme = theme === "light-mode" ? "dark-mode" : "light-mode";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
-    <div className={`min-h-screen hermit-system ${theme}`}>
+    <div className={`min-h-screen business-system ${businessTheme}`}>
       {/* パーティクル背景 */}
       <div id="particles-js"></div>
 
       {/* 垂直ナビゲーション */}
       <nav className="vertical-nav">
         <div className="mode-toggle" id="mode-toggle" onClick={toggleTheme}>
-          {theme === "dark-mode" ? (
-            <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          ) : (
-            <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          )}
+          {/* 常に両方のSVGをレンダリングし、CSSで表示/非表示を切り替え */}
+          <svg 
+            className={`icon ${mounted && theme === 'dark' ? 'block' : 'hidden'}`} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg 
+            className={`icon ${mounted && theme === 'dark' ? 'hidden' : 'block'}`} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
         </div>
       </nav>
 

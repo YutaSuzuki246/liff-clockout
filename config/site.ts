@@ -3,9 +3,9 @@ import { env } from "@/env.mjs";
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "AI Fusion Kit",
+  name: "LIFF-Business-System",
   description:
-    "A feature-rich, highly customizable AI Chatbot Template, empowered by Next.js.",
+    "業務管理システム（LIFF対応）",
   links: {
     x: "https://twitter.com/nphivu414",
     github: "https://github.com/nphivu414/ai-fusion-kit",
