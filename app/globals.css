@@ -51,6 +51,15 @@
   --border-color: #e2e4f0;
 }
 
+/* Tailwindが適用されていない場合のために追加 */
+.block {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
 .business-system * {
   margin: 0;
   padding: 0;

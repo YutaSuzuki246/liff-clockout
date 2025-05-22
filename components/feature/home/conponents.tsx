@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useTheme } from "next-themes";
-import { VerticalNav } from "../verticalnav";
+import { VerticalNav } from "./verticalnav";
+import { Header } from "./header";
 
 export function Dashboard() {
   const { theme } = useTheme();
@@ -49,44 +50,7 @@ export function Dashboard() {
       {/* メインコンテンツ */}
       <div className={`business-system ${businessTheme}`}>
         {/* ヘッダー */}
-        <header className="header">
-          <h1 className="header-title">ダッシュボード</h1>
-          <div className="header-actions">
-            <button className="btn btn-outline">
-              <svg className="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-              </svg>
-              お知らせ投稿
-            </button>
-            <button className="btn btn-outline">
-              <svg className="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="16"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-              </svg>
-              施設
-            </button>
-            <button className="btn btn-outline">
-              <svg className="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="16"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-              </svg>
-              連携サイト
-            </button>
-            <button className="btn btn-primary">
-              <svg className="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              <div className="user-info">
-                <div className="user-name">佐藤太郎</div>
-                <div className="user-role">管理者</div>
-              </div>
-            </button>
-          </div>
-        </header>
+        <Header />
 
         {/* コンテンツエリア */}
         <div className="content-area">
