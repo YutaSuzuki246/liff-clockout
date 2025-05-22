@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 import { MainLayout } from "@/components/ui/common/MainLayout";
+import { Dashboard } from "@/components/feature/home/conponents";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -12,10 +13,8 @@ export const runtime = "edge";
 
 export default async function Home() {
   return (
-    <MainLayout>
-      <div className="pt-16">
-        {/* 空のコンテンツエリア */}
-      </div>
-    </MainLayout>
+    // <MainLayout>
+      <Dashboard />
+    // </MainLayout>
   );
 }
