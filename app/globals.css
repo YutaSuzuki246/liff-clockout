@@ -2,72 +2,340 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('./styles/custom.css');
- 
-.drawer-toggle:checked ~ .drawer-side {
-  backdrop-filter: blur(5px);
+/* ハーミットデザイン用のスタイル */
+:root {
+  /* カラースキーム */
+  --dark: #121438;
+  --primary: #6979f8;
+  --secondary: #be52f2;
+  --accent-1: #00c6ff;
+  --accent-2: #ff5edf;
+  --light: #f7f8fc;
+
+  /* ダークモード用 */
+  --dark-bg: #0f1130;
+  --dark-card: #1a1f45;
+  --dark-text: #f7f8fc;
+  --dark-border: #2c325a;
+
+  /* グリッド設定 */
+  --grid-gap: 16px;
+  --sidebar-width: 25%;
+  --content-width: 75%;
+
+  /* コンポーネント */
+  --card-radius: 16px;
+  --card-shadow: 0 10px 20px rgba(18, 20, 56, 0.1);
+  --icon-stroke: 2px;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
-  select,
-  textarea,
-  input {
-    font-size: 16px !important;
+/* ダークモード切り替え */
+.dark-mode {
+  --bg-color: var(--dark-bg);
+  --card-bg: var(--dark-card);
+  --text-color: var(--dark-text);
+  --border-color: var(--dark-border);
+}
+
+.light-mode {
+  --bg-color: var(--light);
+  --card-bg: white;
+  --text-color: var(--dark);
+  --border-color: #e2e4f0;
+}
+
+.hermit-system * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hermit-system body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  position: relative;
+}
+
+/* パーティクル背景 */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+
+/* パーティクル背景の上に表示されるコンテンツ */
+.vertical-nav,
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* アイコンなどの色変更も滑らかにするために全体に適用 */
+.hermit-system svg,
+.hermit-system button,
+.hermit-system .card,
+.hermit-system .notice-item,
+.hermit-system .facility-item,
+.hermit-system .tab {
+  transition: all 0.3s ease;
+}
+
+.hermit-system .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 垂直サイドバー */
+.vertical-nav {
+  width: 72px;
+  background-color: var(--dark);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+  z-index: 10;
+}
+
+.vertical-nav-logo {
+  color: white;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mode-toggle {
+  margin-top: auto;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* ログイン画面のスタイル */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.login-subtitle {
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.login-body {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+}
+
+.input-with-icon input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(105, 121, 248, 0.2);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #5867e6;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.login-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 装飾要素 */
+.login-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.decoration-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.15;
+}
+
+.shape1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(to right, var(--primary), var(--accent-1));
+  top: -100px;
+  right: -100px;
+}
+
+.shape2 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(to right, var(--secondary), var(--accent-2));
+  bottom: -50px;
+  left: -100px;
+}
+
+.shape3 {
+  width: 200px;
+  height: 200px;
+  background: var(--primary);
+  bottom: 150px;
+  right: 30%;
+}
+
+/* ダークモード用の調整 */
+.dark-mode .decoration-shape {
+  opacity: 0.1;
+}
+
+.dark-mode .input-with-icon input {
+  background-color: rgba(18, 20, 56, 0.2);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 2rem 1.5rem;
   }
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 263.4 70% 50.4%;
-  }
-}
- 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+/* アイコン */
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke-width: var(--icon-stroke);
 }

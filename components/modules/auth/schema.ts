@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 const credentialAuthObject = {
-  email: z.string().email(),
-  password: z.string().min(6, "Password must be at least 6 characters long."),
+  email: z.string().email("有効なメールアドレスを入力してください。"),
+  password: z.string().min(6, "パスワードは最低6文字以上で入力してください。"),
 };
 
 export const credentialAuthSchema = z.object({
@@ -12,10 +12,10 @@ export const credentialAuthSchema = z.object({
 export const registerProfileSchema = z
   .object({
     ...credentialAuthObject,
-    fullName: z.string().optional(),
+    username: z.string().optional(),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match.",
+    message: "パスワードが一致しません。",
     path: ["confirmPassword"],
   });

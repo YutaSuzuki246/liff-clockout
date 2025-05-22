@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 import { getCurrentUser } from "@/lib/session";
 import { createClient } from "@/lib/supabase/server";
-import { Heading3 } from "@/components/ui/typography";
 import { UserAuthForm } from "@/components/modules/auth/UserAuthForm";
 
 export const metadata: Metadata = {
-  title: "Sigin",
-  description: "Sigin to your account",
+  title: "サインイン",
+  description: "アカウントにサインイン",
 };
 
 export const runtime = "edge";
@@ -22,18 +22,28 @@ export default async function LoginPage() {
   const user = await getCurrentUser(supabase);
 
   if (user) {
-    redirect(`/apps/chat`);
+    redirect(`/`);
   }
 
   return (
-    <>
-      <div className="flex flex-col space-y-2 text-center">
-        <Heading3>{siteConfig.name}</Heading3>
-        <p className="text-sm text-muted-foreground">
-          Empowering Your Imagination with AI Services
-        </p>
+    <div className="login-container">
+      <div className="login-card">
+        <div className="login-header">
+          <h1 className="login-title">業務管理システム</h1>
+          <p className="login-subtitle">業務管理ダッシュボード</p>
+        </div>
+        <div className="login-body">
+          <UserAuthForm />
+          <div className="login-footer">
+            アカウントをお持ちでない場合は <Link href="/signup">サインアップ</Link>
+          </div>
+        </div>
       </div>
-      <UserAuthForm />
-    </>
+      <div className="login-decoration">
+        <div className="decoration-shape shape1"></div>
+        <div className="decoration-shape shape2"></div>
+        <div className="decoration-shape shape3"></div>
+      </div>
+    </div>
   );
 }
