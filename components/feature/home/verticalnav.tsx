@@ -3,7 +3,12 @@
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
-export function VerticalNav() {
+type VerticalNavProps = {
+  activeNavIndex: number;
+  onNavChange: (index: number) => void;
+};
+
+export function VerticalNav({ activeNavIndex, onNavChange }: VerticalNavProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -17,21 +22,35 @@ export function VerticalNav() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  // ナビゲーションアイテムをクリックしたときの処理
+  const handleNavClick = (index: number) => {
+    onNavChange(index);
+  };
+
   return (
     <nav className="vertical-nav">
       <div className="vertical-nav-logo">L</div>
-      <div className="vertical-nav-item active">
+      <div 
+        className={`vertical-nav-item ${activeNavIndex === 0 ? 'active' : ''}`} 
+        onClick={() => handleNavClick(0)}
+      >
         <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
           <polyline points="9 22 9 12 15 12 15 22"></polyline>
         </svg>
       </div>
-      <div className="vertical-nav-item">
+      <div 
+        className={`vertical-nav-item ${activeNavIndex === 1 ? 'active' : ''}`}
+        onClick={() => handleNavClick(1)}
+      >
         <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
         </svg>
       </div>
-      <div className="vertical-nav-item">
+      <div 
+        className={`vertical-nav-item ${activeNavIndex === 2 ? 'active' : ''}`}
+        onClick={() => handleNavClick(2)}
+      >
         <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -39,7 +58,10 @@ export function VerticalNav() {
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
       </div>
-      <div className="vertical-nav-item">
+      <div 
+        className={`vertical-nav-item ${activeNavIndex === 3 ? 'active' : ''}`}
+        onClick={() => handleNavClick(3)}
+      >
         <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <line x1="8" y1="6" x2="21" y2="6"></line>
           <line x1="8" y1="12" x2="21" y2="12"></line>

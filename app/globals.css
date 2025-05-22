@@ -843,6 +843,19 @@
   padding-bottom: 5px;
 }
 
+.site-tabs::-webkit-scrollbar {
+  height: 5px;
+}
+
+.site-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.site-tabs::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
 .site-tab {
   padding: 8px 12px;
   font-size: 0.9rem;
@@ -982,4 +995,32 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+
+/* 連携対応OTA表示切替ボタン */
+.toggle-ota-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.toggle-ota-button:hover {
+  background-color: rgba(105, 121, 248, 0.1);
+  color: var(--primary);
+  opacity: 1;
+}
+
+.toggle-ota-button.active {
+  color: var(--primary);
+  opacity: 1;
+  background-color: rgba(105, 121, 248, 0.1);
 }
