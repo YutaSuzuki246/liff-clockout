@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-import { getCurrentUser } from "@/lib/session";
+import { updateCurrentProfile } from "@/lib/db/profile";
 import { createClient } from "@/lib/supabase/server";
 
 import { ProfileFormValues } from "./type";
@@ -15,24 +15,13 @@ export async function updateProfile({
 }: ProfileFormValues) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const user = await getCurrentUser(supabase);
-
-  if (!user) {
-    throw new Error("You must be logged in to update your profile");
-  }
 
   try {
-    const { error } = await supabase.from("profiles").upsert({
-      id: user.id,
-      full_name: fullName,
+    await updateCurrentProfile(supabase, {
+      fullName,
       username,
       website,
-      updated_at: new Date().toISOString(),
     });
-
-    if (error) {
-      throw error;
-    }
 
     revalidatePath("/profile");
   } catch (error) {
