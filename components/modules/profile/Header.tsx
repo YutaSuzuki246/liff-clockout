@@ -1,7 +1,7 @@
 import React from "react";
 import { User } from "@supabase/supabase-js";
 
-import { Profile } from "@/lib/db";
+import { Profile } from "@/lib/types";
 import { UserAvatar } from "@/components/ui/common/UserAvatar";
 import { Subtle } from "@/components/ui/typography";
 

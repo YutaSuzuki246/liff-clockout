@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { Tables } from "../db";
+import { Tables } from "../types";
 
 interface Profile {
   profile: Tables<"profiles"> | null;

@@ -22,7 +22,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { Logger } from "next-axiom";
 import { LogLevel } from "next-axiom/dist/logger";
 
-import { Database, Tables, TablesInsert, TablesUpdate } from ".";
+import { Database, Tables, TablesInsert, TablesUpdate } from "../types";
 import { getCurrentUser } from "../session";
 
 const log = new Logger({

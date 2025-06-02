@@ -1,7 +1,7 @@
 import { AvatarProps } from "@radix-ui/react-avatar";
 import { User } from "@supabase/supabase-js";
 
-import { Profile } from "@/lib/db";
+import { Profile } from "@/lib/types";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../Avatar";
 
